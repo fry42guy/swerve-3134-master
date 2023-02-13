@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import static frc.robot.Constants.*;
 
@@ -166,7 +167,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    // m_pigeon.setFusedHeading(0.0);
 
     // FIXME Uncomment if you are using a NavX
-  m_navx.zeroYaw();
+  m_navx.setAngleAdjustment(Constants.Swereve_Front_Angle_Offset);
 return null;//############
   }
 
@@ -181,7 +182,7 @@ return null;//############
    }
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-   return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
+   return Rotation2d.fromDegrees(360.0 - m_navx.getAngle());
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
