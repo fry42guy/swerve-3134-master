@@ -83,6 +83,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
   public DrivetrainSubsystem() {
+        zeroGyroscope();
     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
     // There are 4 methods you can call to create your swerve modules.
@@ -167,6 +168,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    // m_pigeon.setFusedHeading(0.0);
 
     // FIXME Uncomment if you are using a NavX
+    m_navx.zeroYaw();
   m_navx.setAngleAdjustment(Constants.Swereve_Front_Angle_Offset);
 return null;//############
   }

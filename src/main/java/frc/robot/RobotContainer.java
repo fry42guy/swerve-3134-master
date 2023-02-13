@@ -87,7 +87,7 @@ public class RobotContainer {
     // Back button zeros the gyroscope
 
 
-     new JoystickButton(m_controller, XboxController.Button.kBack.value)
+     new JoystickButton(m_controller, XboxController.Button.kRightStick.value)
     //         // No requirements because we don't need to interrupt anything
             .onTrue(new InstantCommand (
               ()-> m_drivetrainSubsystem.zeroGyroscope()));  //############################################
