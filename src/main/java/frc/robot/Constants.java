@@ -51,7 +51,9 @@ public final class Constants {
 
 
 //###############################################################################################################################
-    public static final int PCM_CAN_ID = 1 ;
+public static final double Swereve_Front_Angle_Offset = 0;    
+
+public static final int PCM_CAN_ID = 1 ;
     public static final int Arm_Intake_Left_ID = 51;
     public static final int Arm_Intake_Right_ID = 50;
     public static final double Arm_intake_speed = .25;
@@ -74,8 +76,8 @@ public final class Constants {
 
 
     public static final int m_Horizontal = 46; // ArmMotor Falcon 500 CAN ID ###
-    public static final double Horizontal_Motor_Speed = .6; 
-    public static final double Horizontal_PID_Speed = .25;
+    public static final double Horizontal_Motor_Speed = .1; 
+    public static final double Horizontal_PID_Speed = .1;
     public static final double Horizontal_High_Setpoint = -180000;
     public static final double Horizontal_Low_Setpoint = -1000;
 
