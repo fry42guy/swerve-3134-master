@@ -81,7 +81,40 @@ public static final int PCM_CAN_ID = 1 ;
     public static final double Horizontal_High_Setpoint = -180000;
     public static final double Horizontal_Low_Setpoint = -1000;
 
+// Start/Stow
 
+public static final double Store_Stoe_Vert = -2000;
+public static final double Store_Stoe_Wrist = 9252;
+public static final double Store_Stoe_Hori = 100;
+
+//Floor Pick up Cube/Cone
+
+public static final double Floor_Cube_Cone_Vert = -2000;
+public static final double Floor_Cube_Cone_Wrist = 105771;
+public static final double Floor_Cube_Cone_Hori = 100;
+//Score Cone/Cube MID
+
+public static final double Cone_Cube_MID_Vert = -177192;
+public static final double Cone_Cube_MID_Wrist = 91095;
+public static final double Cone_Cube_MID_Hori = 5982;
+
+
+//Score Cone/Cube High
+public static final double Cone_Cube_High_Vert = -177192;
+public static final double Cone_Cube_High_Wrist = 57000;
+public static final double Cone_Cube_High_Hori = 12718;
+
+//Travel w/Cone Cube
+
+public static final double Cone_Cube_Travel_Vert = -2776;
+public static final double Cone_Cube_Travel_Wrist = 17000;
+public static final double Cone_Cube_Travel_Hori = 100;
+
+//Pickup Player Station 
+
+public static final double Cone_Cube_Player_Station_Vert = -177192;
+public static final double Cone_Cube_Player_Station_Wrist = 76000;
+public static final double Cone_Cube_Player_Station_Hori = 100;
 
 
 
