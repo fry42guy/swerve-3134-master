@@ -56,7 +56,7 @@ public static final double Swereve_Front_Angle_Offset = -90;
 public static final int PCM_CAN_ID = 1 ;
     public static final int Arm_Intake_Left_ID = 51;
     public static final int Arm_Intake_Right_ID = 50;
-    public static final double Arm_intake_speed = .25;
+    public static final double Arm_intake_speed = .45;
 
 
     public static final int m_Wrist = 44; // ArmMotor Falcon 500 CAN ID ###

@@ -18,7 +18,7 @@ public class AirMod extends SubsystemBase {
   /** Creates a new AirMod. */
 
   //private final PneumaticsControlModule m_Compressor = new PneumaticsControlModule(Constants.PCM_CAN_ID); 
-  private final Compressor m_Compressor = new Compressor(Constants.PCM_CAN_ID, PneumaticsModuleType.REVPH);
+  private final Compressor m_Compressor = new Compressor(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM);
   private final DoubleSolenoid m_Claw = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 2);
 
 
