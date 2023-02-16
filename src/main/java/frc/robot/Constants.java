@@ -68,6 +68,10 @@ public static final int PCM_CAN_ID = 1 ;
     public static final double Vertical_High_Setpoint = -180000;
     public static final double Vertical_Low_Setpoint = -1000;
 
+    public static final double Vertical_PID_Tolerance_Offset = 0;
+    public static final double Horizontal_PID_Tolerance_Offset = 0;
+    public static final double Wrist_PID_Tolerance_Offset = 0;
+
 
     public static final double Wrist_High_Setpoint = 105000;
     public static final double Wrist_cube_Highth = 100000;

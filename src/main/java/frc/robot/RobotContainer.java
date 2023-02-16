@@ -159,9 +159,9 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
           return false;
   
       })
-      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Store_Stoe_Vert))
-      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Store_Stoe_Hori))
-      .onTrue(new PIDWristCommand(m_Wrist, Constants.Store_Stoe_Wrist));
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset));
       
       new Trigger(()->
      
@@ -172,9 +172,9 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
           return false;
   
       })
-      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Floor_Cube_Cone_Vert))
-      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Floor_Cube_Cone_Hori))
-      .onTrue(new PIDWristCommand(m_Wrist, Constants.Floor_Cube_Cone_Wrist));
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Floor_Cube_Cone_Vert+ Constants.Vertical_PID_Tolerance_Offset))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Floor_Cube_Cone_Hori+ Constants.Horizontal_PID_Tolerance_Offset))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Floor_Cube_Cone_Wrist+Constants.Wrist_PID_Tolerance_Offset));
 
       new Trigger(()->
      
@@ -185,9 +185,9 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
           return false;
   
       })
-      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_MID_Vert))
-      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_MID_Hori))
-      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_MID_Wrist));
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset));
      
 
       new Trigger(()->
@@ -199,9 +199,9 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
           return false;
   
       })
-      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_High_Vert))
-      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_High_Hori))
-      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_High_Wrist));
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_High_Hori+ Constants.Horizontal_PID_Tolerance_Offset))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset));
 
 
 
@@ -214,9 +214,9 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
           return false;
   
       })
-      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_Travel_Vert))
-      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_Travel_Hori))
-      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_Travel_Wrist));
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_Travel_Vert+ Constants.Vertical_PID_Tolerance_Offset))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_Travel_Hori+ Constants.Horizontal_PID_Tolerance_Offset))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_Travel_Wrist+Constants.Wrist_PID_Tolerance_Offset));
 
       new Trigger(()->
      
@@ -227,9 +227,9 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
           return false;
   
       })
-      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_Player_Station_Vert))
-      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_Player_Station_Hori))
-      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_Player_Station_Wrist));
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_Player_Station_Vert+ Constants.Vertical_PID_Tolerance_Offset))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_Player_Station_Hori+ Constants.Horizontal_PID_Tolerance_Offset))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_Player_Station_Wrist+Constants.Wrist_PID_Tolerance_Offset));
 
 
       // new Trigger(()->
