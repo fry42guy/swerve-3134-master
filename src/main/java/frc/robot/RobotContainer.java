@@ -37,7 +37,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
-  private final XboxController m_controller = new XboxController(0);
+  private final XboxController m_Drive_Controller = new XboxController(0);
+
+  private final XboxController m_Operator_Controller = new XboxController(1);
 
   private final AirMod M_PCM = new AirMod();
 
@@ -65,9 +67,9 @@ public class RobotContainer {
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem,
-            () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+            () -> -modifyAxis(m_Drive_Controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(m_Drive_Controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(m_Drive_Controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
 
 
@@ -87,152 +89,230 @@ public class RobotContainer {
     // Back button zeros the gyroscope
 
 
-     new JoystickButton(m_controller, XboxController.Button.kRightStick.value)
+     new JoystickButton(m_Drive_Controller, XboxController.Button.kRightStick.value)
     //         // No requirements because we don't need to interrupt anything
             .onTrue(new InstantCommand (
               ()-> m_drivetrainSubsystem.zeroGyroscope()));  //############################################
             
 
-new JoystickButton(m_controller, XboxController.Button.kBack.value)
-.onTrue(new InstantCommand(
-  ()-> M_PCM.ClawClose()
-));
+              new Trigger(() ->
+     {if(m_Operator_Controller.getLeftTriggerAxis() >0)
+      return true;
+      else
+      {
+        return false;
+      }
+     
+     }
+     ).onTrue(new InstantCommand(
+     ()-> M_PCM.ClawClose()));
 
-new JoystickButton(m_controller, XboxController.Button.kStart.value)
+new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.value)
 .onTrue(new InstantCommand(
   ()-> M_PCM.ClawOpen()
 ));
 
 
-   new JoystickButton(m_controller, XboxController.Button.kY.value)
-   .onTrue(new InstantCommand(
-    () -> m_Wrist.setSpeed(Constants.Wrist_Motor_Speed),
-    m_Wrist))
+  //  new JoystickButton(m_Drive_Controller, XboxController.Button.kY.value)
+  //  .onTrue(new InstantCommand(
+  //   () -> m_Wrist.setSpeed(Constants.Wrist_Motor_Speed),
+  //   m_Wrist))
    
-    .onFalse(new InstantCommand(
-    () -> m_Wrist.stop(),
-    m_Wrist));
+  //   .onFalse(new InstantCommand(
+  //   () -> m_Wrist.stop(),
+  //   m_Wrist));
 
-    new JoystickButton(m_controller, XboxController.Button.kX.value)
-    .onTrue(new InstantCommand(
-     () -> m_Wrist.setSpeed(Constants.Wrist_Motor_Speed*-1),
-     m_Wrist))
+  //   new JoystickButton(m_Drive_Controller, XboxController.Button.kX.value)
+  //   .onTrue(new InstantCommand(
+  //    () -> m_Wrist.setSpeed(Constants.Wrist_Motor_Speed*-1),
+  //    m_Wrist))
     
-     .onFalse(new InstantCommand(
-     () -> m_Wrist.stop(),
-     m_Wrist));
+  //    .onFalse(new InstantCommand(
+  //    () -> m_Wrist.stop(),
+  //    m_Wrist));
           
 
-   new JoystickButton(m_controller, XboxController.Button.kA.value)
-    .onTrue(new InstantCommand(
-     () -> m_Vertical.setSpeed(Constants.Vertical_Motor_Speed),
-     m_Vertical))
+  //  new JoystickButton(m_Drive_Controller, XboxController.Button.kA.value)
+  //   .onTrue(new InstantCommand(
+  //    () -> m_Vertical.setSpeed(Constants.Vertical_Motor_Speed),
+  //    m_Vertical))
     
-     .onFalse(new InstantCommand(
-     () -> m_Vertical.stop(),
-     m_Vertical));
+  //    .onFalse(new InstantCommand(
+  //    () -> m_Vertical.stop(),
+  //    m_Vertical));
 
-     new JoystickButton(m_controller, XboxController.Button.kB.value)
-    .onTrue(new InstantCommand(
-     () -> m_Vertical.setSpeed(Constants.Vertical_Motor_Speed*-1),
-     m_Vertical))
+  //    new JoystickButton(m_Drive_Controller, XboxController.Button.kB.value)
+  //   .onTrue(new InstantCommand(
+  //    () -> m_Vertical.setSpeed(Constants.Vertical_Motor_Speed*-1),
+  //    m_Vertical))
     
-     .onFalse(new InstantCommand(
-     () -> m_Vertical.stop(),
-     m_Vertical));
+  //    .onFalse(new InstantCommand(
+  //    () -> m_Vertical.stop(),
+  //    m_Vertical));
 
      new Trigger(()->
      
       {
-        if(m_controller.getLeftBumper())
+        if(m_Drive_Controller.getRightTriggerAxis() > 0)
           return true;
         else
           return false;
   
       })
-      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Vertical_High_Setpoint));
-     
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Store_Stoe_Vert))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Store_Stoe_Hori))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Store_Stoe_Wrist));
+      
       new Trigger(()->
      
       {
-        if(m_controller.getRightBumper())
+        if(m_Drive_Controller.getLeftTriggerAxis() > 0)
           return true;
         else
           return false;
   
       })
-      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Vertical_Low_Setpoint));
-
-
-      new Trigger(()->
-     
-      {
-        if(m_controller.getPOV() == 90)
-          return true;
-        else
-          return false;
-  
-      })
-      .onTrue(new PIDWristCommand(m_Wrist, Constants.Wrist_High_Setpoint));
-     
-      new Trigger(()->
-     
-      {
-        if(m_controller.getPOV()==270)
-          return true;
-        else
-          return false;
-  
-      })
-      .onTrue(new PIDWristCommand(m_Wrist, Constants.Wrist_Low_Setpoint));
-
-
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Floor_Cube_Cone_Vert))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Floor_Cube_Cone_Hori))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Floor_Cube_Cone_Wrist));
 
       new Trigger(()->
      
       {
-        if(m_controller.getPOV() == 0)
+        if(m_Drive_Controller.getLeftBumper())
           return true;
         else
           return false;
   
       })
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_MID_Vert))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_MID_Hori))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_MID_Wrist));
+     
+
+      new Trigger(()->
+     
+      {
+        if(m_Drive_Controller.getXButton())
+          return true;
+        else
+          return false;
+  
+      })
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_High_Vert))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_High_Hori))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_High_Wrist));
+
+
+
+      new Trigger(()->
+     
+      {
+        if(m_Drive_Controller.getRightBumper())
+          return true;
+        else
+          return false;
+  
+      })
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_Travel_Vert))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_Travel_Hori))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_Travel_Wrist));
+
+      new Trigger(()->
+     
+      {
+        if(m_Drive_Controller.getYButton())
+          return true;
+        else
+          return false;
+  
+      })
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cone_Cube_Player_Station_Vert))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_Player_Station_Hori))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_Player_Station_Wrist));
+
+
+      // new Trigger(()->
+     
+      // {
+      //   if(m_Drive_Controller.getRightBumper())
+      //     return true;
+      //   else
+      //     return false;
+  
+      // })
+      // .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Vertical_Low_Setpoint));
+
+
+      // new Trigger(()->
+     
+      // {
+      //   if(m_Drive_Controller.getPOV() == 90)
+      //     return true;
+      //   else
+      //     return false;
+  
+      // })
+      // .onTrue(new PIDWristCommand(m_Wrist, Constants.Wrist_High_Setpoint));
+     
+      // new Trigger(()->
+     
+      // {
+      //   if(m_Drive_Controller.getPOV()==270)
+      //     return true;
+      //   else
+      //     return false;
+  
+      // })
+      // .onTrue(new PIDWristCommand(m_Wrist, Constants.Wrist_Low_Setpoint));
+
+
+
+      // new Trigger(()->
+     
+      // {
+      //   if(m_Drive_Controller.getPOV() == 0)
+      //     return true;
+      //   else
+      //     return false;
+  
+      // })
     
       
-      .onTrue(new InstantCommand(
-        () -> m_Horizontal.setSpeed(Constants.Horizontal_Motor_Speed*-1),
-        m_Horizontal))
+      // .onTrue(new InstantCommand(
+      //   () -> m_Horizontal.setSpeed(Constants.Horizontal_Motor_Speed*-1),
+      //   m_Horizontal))
        
-        .onFalse(new InstantCommand(
-        () -> m_Horizontal.stop(),
-        m_Horizontal));
+      //   .onFalse(new InstantCommand(
+      //   () -> m_Horizontal.stop(),
+      //   m_Horizontal));
 
 
 
 
 
-      new Trigger(()->
+  //     new Trigger(()->
      
-      {
-        if(m_controller.getPOV()==180)
-          return true;
-        else
-          return false;
+  //     {
+  //       if(m_Drive_Controller.getPOV()==180)
+  //         return true;
+  //       else
+  //         return false;
   
-      })
-      .onTrue(new InstantCommand(
-        () -> m_Horizontal.setSpeed(Constants.Horizontal_Motor_Speed),
-        m_Horizontal))
+  //     })
+  //     .onTrue(new InstantCommand(
+  //       () -> m_Horizontal.setSpeed(Constants.Horizontal_Motor_Speed),
+  //       m_Horizontal))
        
-        .onFalse(new InstantCommand(
-        () -> m_Horizontal.stop(),
-        m_Horizontal));
+  //       .onFalse(new InstantCommand(
+  //       () -> m_Horizontal.stop(),
+  //       m_Horizontal));
 
 
 
 
      new Trigger(() ->
-     {if(m_controller.getLeftTriggerAxis() >0)
+     {if(m_Operator_Controller.getRightTriggerAxis()>0)
       return true;
       else
       {
@@ -245,7 +325,7 @@ new JoystickButton(m_controller, XboxController.Button.kStart.value)
 
 
      new Trigger(() ->
-     {if(m_controller.getRightTriggerAxis() >0)
+     {if(m_Operator_Controller.getLeftBumper())
       return true;
       else
       {
@@ -255,7 +335,7 @@ new JoystickButton(m_controller, XboxController.Button.kStart.value)
      }
      ).whileTrue(new IntakeREV(m_ArmIntakeSubsystem));
 
-  }
+   }
 
 
   /**
