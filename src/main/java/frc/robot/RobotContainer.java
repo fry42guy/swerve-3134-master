@@ -335,7 +335,86 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
      }
      ).whileTrue(new IntakeREV(m_ArmIntakeSubsystem));
 
+   
+   new Trigger(() -> 
+   
+   {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getAButton())
+
+   return true;
+   else
+    return false;
    }
+   ).onTrue(new InstantCommand(
+    () -> m_Vertical.setSpeed(Constants.Vertical_Motor_Speed),m_Vertical));
+   
+
+    new Trigger(() ->
+    {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getBButton())
+
+      return true;
+      else
+       return false;
+      }
+      ).onTrue(new InstantCommand(
+       () -> m_Vertical.setSpeed(Constants.Vertical_Motor_Speed*-1),m_Vertical));
+   
+   
+   //
+   new Trigger(() -> 
+   
+   {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getRightBumper())
+
+   return true;
+   else
+    return false;
+   }
+   ).onTrue(new InstantCommand(
+    () -> m_Horizontal.setSpeed(Constants.Horizontal_Motor_Speed),m_Horizontal));
+   
+
+    new Trigger(() ->
+    {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getLeftBumper())
+
+      return true;
+      else
+       return false;
+      }
+      ).onTrue(new InstantCommand(
+       () -> m_Horizontal.setSpeed(Constants.Horizontal_Motor_Speed*-1),m_Horizontal));
+   //
+
+   new Trigger(() -> 
+   
+   {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getYButton())
+
+   return true;
+   else
+    return false;
+   }
+   ).onTrue(new InstantCommand(
+    () -> m_Wrist.setSpeed(Constants.Wrist_Motor_Speed),m_Wrist));
+   
+
+    new Trigger(() ->
+    {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getXButton())
+
+      return true;
+      else
+       return false;
+      }
+      ).onTrue(new InstantCommand(
+       () -> m_Wrist.setSpeed(Constants.Wrist_Motor_Speed*-1),m_Wrist));
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    }
 
 
   /**
