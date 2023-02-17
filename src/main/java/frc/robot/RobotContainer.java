@@ -325,7 +325,7 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
 
 
      new Trigger(() ->
-     {if(m_Operator_Controller.getLeftBumper())
+     {if(m_Operator_Controller.getRightBumper())
       return true;
       else
       {
