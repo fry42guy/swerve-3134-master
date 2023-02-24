@@ -24,6 +24,10 @@ horizontalmotor.setSelectedSensorPosition(0);
 
   }
 
+  public void ZeroAxis(){
+    horizontalmotor.setSelectedSensorPosition(0);
+  }
+
   @Override
   public void periodic() {
 

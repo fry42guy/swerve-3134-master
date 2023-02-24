@@ -28,6 +28,10 @@ Verticalmotor.setSelectedSensorPosition(0); ///////////////*************////////
 
   }
 
+  public void ZeroAxis(){
+    Verticalmotor.setSelectedSensorPosition(0);
+  }
+
   @Override
   public void periodic() {
 

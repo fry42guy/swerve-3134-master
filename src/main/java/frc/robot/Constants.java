@@ -24,7 +24,7 @@ public final class Constants {
      *
      * Should be measured from center to center.
      */
-    public static final double DRIVETRAIN_WHEELBASE_METERS = .533; // FIXME Measure and set wheelbase
+    public static final double DRIVETRAIN_WHEELBASE_METERS = .595; // FIXME Measure and set wheelbase
 
     public static final int DRIVETRAIN_PIGEON_ID = 0; // FIXME Set Pigeon ID
 
@@ -56,7 +56,7 @@ public static final double Swereve_Front_Angle_Offset = -90;
 public static final int PCM_CAN_ID = 1 ;
     public static final int Arm_Intake_Left_ID = 51;
     public static final int Arm_Intake_Right_ID = 50;
-    public static final double Arm_intake_speed = .35;
+    public static final double Arm_intake_speed = .30;
 
 
     public static final int m_Wrist = 44; // ArmMotor Falcon 500 CAN ID ###
@@ -100,13 +100,13 @@ public static final double Floor_Cube_Cone_Hori = 100;
 
 public static final double Cone_Cube_MID_Vert = -177192;
 public static final double Cone_Cube_MID_Wrist = 91095;
-public static final double Cone_Cube_MID_Hori = 75082;
+public static final double Cone_Cube_MID_Hori = 76082;
 
 
 //Score Cone/Cube High
 public static final double Cone_Cube_High_Vert = -177192;
 public static final double Cone_Cube_High_Wrist = 57000;
-public static final double Cone_Cube_High_Hori = 75718;
+public static final double Cone_Cube_High_Hori = 82718;
 
 //Travel w/Cone Cube
 

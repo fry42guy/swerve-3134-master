@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -67,14 +70,18 @@ public class RobotContainer {
 
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem,
-            () -> -modifyAxis(m_Drive_Controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(m_Drive_Controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(m_Drive_Controller.getLeftY()*.8) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+            () -> -modifyAxis(m_Drive_Controller.getLeftX()*.8) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
             () -> -modifyAxis(m_Drive_Controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
 
 
+// ShuffleboardTab buttons = Shuffleboard.getTab("Buttons");
+ //SmartDashboard.putData("Zero/Home Postions set", zeroHomeallaxis());
 
+ 
 
+;
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -179,7 +186,7 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
       new Trigger(()->
      
       {
-        if(m_Drive_Controller.getLeftBumper())
+        if(m_Drive_Controller.getLeftBumper() )
           return true;
         else
           return false;
@@ -447,5 +454,18 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
     value = Math.copySign(value * value, value);
 
     return value;
+  }
+
+
+
+  public Sendable zeroHomeallaxis() {
+    
+ m_Horizontal.ZeroAxis();
+ m_Wrist.ZeroAxis();
+ m_Vertical.ZeroAxis();
+    
+return null;
+
+
   }
 }

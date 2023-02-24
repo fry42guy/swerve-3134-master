@@ -24,6 +24,10 @@ wristmotor.setSelectedSensorPosition(0);
 
   }
 
+  public void ZeroAxis(){
+    wristmotor.setSelectedSensorPosition(0);
+  }
+
   @Override
   public void periodic() {
 
