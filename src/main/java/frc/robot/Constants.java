@@ -4,6 +4,12 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj2.command.Command;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -126,10 +132,17 @@ public static final double Cone_Cube_Player_Station_Wrist = 76000;
 public static final double Cone_Cube_Player_Station_Hori = 100;
 
 
+public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
+    new Translation2d(DRIVETRAIN_WHEELBASE_METERS / 2, DRIVETRAIN_TRACKWIDTH_METERS / 2),
+    new Translation2d(DRIVETRAIN_WHEELBASE_METERS / 2, -DRIVETRAIN_TRACKWIDTH_METERS / 2),
+    new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2, DRIVETRAIN_TRACKWIDTH_METERS / 2),
+    new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2, -DRIVETRAIN_TRACKWIDTH_METERS / 2));
 
 
+    public static final class AutoConstants {
+    public static final HashMap<String, Command> eventMap = new HashMap<>();
 
-
+    }
 
 
 

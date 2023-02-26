@@ -9,12 +9,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.IntakeFWD;
 import frc.robot.commands.IntakeREV;
@@ -28,6 +30,19 @@ import frc.robot.subsystems.HorizontalSubsystem;
 import frc.robot.subsystems.VerticalSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 import frc.robot.commands.ManualModeCommands.*;
+
+
+import java.io.File;
+
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPoint;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 
 
@@ -55,11 +70,14 @@ public class RobotContainer {
 
   private final ArmIntakeSubsystem m_ArmIntakeSubsystem = new ArmIntakeSubsystem();
  
+  SendableChooser<String> autoChooser = new SendableChooser<>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
+    ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
 
     M_PCM.Start();
     // Set up the default command for the drivetrain.
@@ -82,9 +100,45 @@ m_drivetrainSubsystem.zeroGyroscope();
 
  
 
-;
+
     // Configure the button bindings
     configureButtonBindings();
+
+
+    /// Auto Stuff
+
+    //autoChooser.setDefaultOption("Drive Forwards", "Drive Forwards");
+          //   try {
+
+              
+          //     // Create a file object
+          //     File f = new File("./src/main/deploy/pathplanner");
+      
+          //     // Get all the names of the files present
+          //     // in the given directory
+          //     File[] files = f.listFiles();
+          //     System.out.println("Files are:");
+          //     // Display the names of the files
+          //     for (int i = 0; i < files.length; i++) {
+          //         String file_name = files[i].getName();
+          //         String file_extention = file_name.substring(file_name.length() - 5, file_name.length());
+          //         String path_name = file_name.substring(0, file_name.length() - 5);
+          //         if (file_extention.equals(".path")){
+          //           autoChooser.addOption(path_name, path_name);
+          //         }
+          //     }
+          // }
+          // catch (Exception e) {
+          //     System.err.println(e.getMessage());
+          // }
+          autoTab.add(autoChooser);
+          autoChooser.setDefaultOption("Not and Auto", "Not an Auto");
+          autoChooser.addOption("Simple", "Simple");
+          
+         // autoChooser.addOption("Simple", "Simple");
+
+         // autoChooser.addOption("Simple", "Simple");
+          
   }
 
   /**
@@ -427,7 +481,25 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+  //   return new InstantCommand();
+  // }
+
+  // private static double deadband(double value, double deadband) {
+  //   if (Math.abs(value) > deadband) {
+  //     if (value > 0.0) {
+  //       return (value - deadband) / (1.0 - deadband);
+  //     } else {
+  //       return (value + deadband) / (1.0 - deadband);
+  //     }
+  if (autoChooser.getSelected() != null){
+
+System.out.println(autoChooser.getSelected());
+//SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(null, null, null, null, null, null, null)
+return new InstantCommand();
+  }
+     else {
+      return new InstantCommand();
+    }
   }
 
   private static double deadband(double value, double deadband) {
