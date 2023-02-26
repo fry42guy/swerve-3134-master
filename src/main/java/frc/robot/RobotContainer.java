@@ -173,7 +173,7 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
       new Trigger(()->
      
       {
-        if(m_Drive_Controller.getLeftTriggerAxis() > 0)
+        if(m_Drive_Controller.getLeftBumper())
           return true;
         else
           return false;
@@ -186,7 +186,7 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
       new Trigger(()->
      
       {
-        if(m_Drive_Controller.getLeftBumper() )
+        if(m_Drive_Controller.getLeftTriggerAxis() > 0)
           return true;
         else
           return false;
