@@ -31,27 +31,27 @@ public final class Constants {
     public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 2; // FIXME Set front left module drive motor ID
     public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 1; // FIXME Set front left module steer motor ID
     public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 1; // FIXME Set front left steer encoder ID
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(220-8+5); // FIXME Measure and set front left steer offset
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(220-8+5-16+6+5); // FIXME Measure and set front left steer offset
 
     public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 8; // FIXME Set front right drive motor ID
     public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 7; // FIXME Set front right steer motor ID
     public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 4; // FIXME Set front right steer encoder ID
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(180+45-5+1); // FIXME Measure and set front right steer offset
+    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(180+45-5+1-18+6); // FIXME Measure and set front right steer offset
 
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 4; // FIXME Set back left drive motor ID
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 3; // FIXME Set back left steer motor ID
     public static final int BACK_LEFT_MODULE_STEER_ENCODER = 2; // FIXME Set back left steer encoder ID
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(295-16+8); // FIXME Measure and set back left steer offset
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(295-16+8-17+6); // FIXME Measure and set back left steer offset
 
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 6; // FIXME Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 5; // FIXME Set back right steer motor ID
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 3; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(335-10+6); // FIXME Measure and set back right steer offset
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(335-10+6-14+6); // FIXME Measure and set back right steer offset
 
 
 
 //###############################################################################################################################
-public static final double Swereve_Front_Angle_Offset = -90;    
+public static final double Swereve_Front_Angle_Offset = 90; //90   
 
 public static final int PCM_CAN_ID = 1 ;
     public static final int Arm_Intake_Left_ID = 51;
@@ -61,12 +61,17 @@ public static final int PCM_CAN_ID = 1 ;
 
     public static final int m_Wrist = 44; // ArmMotor Falcon 500 CAN ID ###
     public static final double Wrist_Motor_Speed = .2; 
+    public static final double Wrist_Limit_High = 123000;
+    public static final double Wrist_Limit_Low = 0;
 
     public static final int m_Vertical = 45; // ArmMotor Falcon 500 CAN ID ###
-    public static final double Vertical_Motor_Speed = .6; 
-
+    public static final double Vertical_Motor_Speed = .4; 
+    public static final double Vertical_Motio_Accel = 100; //units per 100ms - 10- 100ms/sec 4000units/rev 
+    public static final double Vertical_Limit_High = 0;
+    public static final double Vertical_limit_Low = -190000;
+    
     public static final double Vertical_High_Setpoint = -180000;
-    public static final double Vertical_Low_Setpoint = -1000;
+    public static final double Vertical_Low_Setpoint = -4000;
 
     public static final double Vertical_PID_Tolerance_Offset = 0;
     public static final double Horizontal_PID_Tolerance_Offset = 0;
@@ -82,19 +87,19 @@ public static final int PCM_CAN_ID = 1 ;
     public static final int m_Horizontal = 46; // ArmMotor Falcon 500 CAN ID ###
     public static final double Horizontal_Motor_Speed = .2; 
     public static final double Horizontal_PID_Speed = .3;
-    public static final double Horizontal_High_Setpoint = -180000;
-    public static final double Horizontal_Low_Setpoint = -1000;
+    public static final double Horizontal_Limit_High = 105000 ;
+    public static final double Horizontal_Limit_Low = 0;
 
 // Start/Stow
 
-public static final double Store_Stoe_Vert = -2000;
+public static final double Store_Stoe_Vert = -4000;
 public static final double Store_Stoe_Wrist = 9252;
 public static final double Store_Stoe_Hori = 100;
 
 //Floor Pick up Cube/Cone
 
-public static final double Floor_Cube_Cone_Vert = -2000;
-public static final double Floor_Cube_Cone_Wrist = 100771;
+public static final double Floor_Cube_Cone_Vert = -4000;
+public static final double Floor_Cube_Cone_Wrist = 116771;
 public static final double Floor_Cube_Cone_Hori = 100;
 //Score Cone/Cube MID
 
@@ -105,12 +110,12 @@ public static final double Cone_Cube_MID_Hori = 76082;
 
 //Score Cone/Cube High
 public static final double Cone_Cube_High_Vert = -177192;
-public static final double Cone_Cube_High_Wrist = 57000;
+public static final double Cone_Cube_High_Wrist = 62000;
 public static final double Cone_Cube_High_Hori = 82718;
 
 //Travel w/Cone Cube
 
-public static final double Cone_Cube_Travel_Vert = -2776;
+public static final double Cone_Cube_Travel_Vert = -4000;
 public static final double Cone_Cube_Travel_Wrist = 17000;
 public static final double Cone_Cube_Travel_Hori = 100;
 

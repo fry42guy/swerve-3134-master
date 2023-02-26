@@ -21,6 +21,15 @@ private final TalonFX wristmotor;
 wristmotor = new TalonFX(Constants.m_Wrist);
 
 wristmotor.setSelectedSensorPosition(0);
+wristmotor.configForwardSoftLimitThreshold(Constants.Wrist_Limit_High);
+wristmotor.configReverseSoftLimitThreshold(Constants.Wrist_Limit_Low);
+wristmotor.configForwardSoftLimitEnable(true);
+wristmotor.configReverseSoftLimitEnable(true);
+
+
+//wristmotor.configForwardSoftLimitThreshold(Constants.Wrist_Limit_High);
+//wristmotor.configReverseSoftLimitThreshold(Constants.Wrist_Limit_Low);
+
 
   }
 

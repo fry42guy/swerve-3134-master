@@ -21,6 +21,12 @@ private final TalonFX horizontalmotor;
 horizontalmotor = new TalonFX(Constants.m_Horizontal);
 
 horizontalmotor.setSelectedSensorPosition(0);
+horizontalmotor.configForwardSoftLimitThreshold(Constants.Horizontal_Limit_High);
+horizontalmotor.configReverseSoftLimitThreshold(Constants.Horizontal_Limit_Low);
+horizontalmotor.configForwardSoftLimitEnable(true);
+horizontalmotor.configReverseSoftLimitEnable(true);
+
+
 
   }
 
@@ -41,6 +47,7 @@ horizontalmotor.setSelectedSensorPosition(0);
   public void setSpeed(double speed)
   {
     horizontalmotor.set(ControlMode.PercentOutput, speed);
+
   }
 
   public void stop()

@@ -27,6 +27,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HorizontalSubsystem;
 import frc.robot.subsystems.VerticalSubsystem;
 import frc.robot.subsystems.WristSubsystem;
+import frc.robot.commands.ManualModeCommands.*;
 
 
 
@@ -67,7 +68,7 @@ public class RobotContainer {
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
 
-
+m_drivetrainSubsystem.zeroGyroscope();
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem,
             () -> -modifyAxis(m_Drive_Controller.getLeftY()*.8) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
@@ -332,7 +333,7 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
 
 
      new Trigger(() ->
-     {if(m_Operator_Controller.getRightBumper())
+     {if(m_Operator_Controller.getRightBumper() &! m_Operator_Controller.getLeftStickButton())
       return true;
       else
       {
@@ -345,72 +346,67 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
    
    new Trigger(() -> 
    
-   {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getAButton())
+   {if (m_Operator_Controller.getLeftStickButton()&& m_Operator_Controller.getAButton())
 
    return true;
    else
     return false;
    }
-   ).onTrue(new InstantCommand(
-    () -> m_Vertical.setSpeed(Constants.Vertical_Motor_Speed),m_Vertical));
+   ).whileTrue(new VerticalManualMode_Down (m_Vertical));
    
 
     new Trigger(() ->
-    {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getBButton())
+    {if (m_Operator_Controller.getLeftStickButton()&& m_Operator_Controller.getBButton())
 
       return true;
       else
        return false;
       }
-      ).onTrue(new InstantCommand(
-       () -> m_Vertical.setSpeed(Constants.Vertical_Motor_Speed*-1),m_Vertical));
+      ).whileTrue(new VerticalManualMode_Up (m_Vertical));
    
    
    //
    new Trigger(() -> 
    
-   {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getRightBumper())
+   {if (m_Operator_Controller.getLeftStickButton()&& m_Operator_Controller.getRightBumper())
 
    return true;
    else
     return false;
    }
-   ).onTrue(new InstantCommand(
-    () -> m_Horizontal.setSpeed(Constants.Horizontal_Motor_Speed),m_Horizontal));
+   ).whileTrue(new HorizontalManualMode_Out (m_Horizontal));
    
 
     new Trigger(() ->
-    {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getLeftBumper())
+    {if (m_Operator_Controller.getLeftStickButton()&& m_Operator_Controller.getLeftBumper())
 
       return true;
       else
        return false;
       }
-      ).onTrue(new InstantCommand(
-       () -> m_Horizontal.setSpeed(Constants.Horizontal_Motor_Speed*-1),m_Horizontal));
+      ).whileTrue(new HorizontalManualMode_In (m_Horizontal));
+       
    //
 
    new Trigger(() -> 
    
-   {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getYButton())
+   {if (m_Operator_Controller.getLeftStickButton()&& m_Operator_Controller.getYButton())
 
    return true;
    else
     return false;
    }
-   ).onTrue(new InstantCommand(
-    () -> m_Wrist.setSpeed(Constants.Wrist_Motor_Speed),m_Wrist));
+   ).whileTrue(new WristManualMode_Up (m_Wrist));
    
 
     new Trigger(() ->
-    {if (m_Operator_Controller.getRightStickButton()&& m_Operator_Controller.getXButton())
+    {if (m_Operator_Controller.getLeftStickButton()&& m_Operator_Controller.getXButton())
 
       return true;
       else
        return false;
       }
-      ).onTrue(new InstantCommand(
-       () -> m_Wrist.setSpeed(Constants.Wrist_Motor_Speed*-1),m_Wrist));
+      ).whileTrue(new WristManualMode_Down (m_Wrist));
    
    
    

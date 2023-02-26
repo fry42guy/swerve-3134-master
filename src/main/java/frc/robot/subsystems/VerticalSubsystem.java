@@ -23,8 +23,13 @@ private final TalonFX Verticalmotor;
 
 Verticalmotor = new TalonFX(Constants.m_Vertical);
 
-Verticalmotor.setSelectedSensorPosition(0); ///////////////*************///////////////
+Verticalmotor.setSelectedSensorPosition(0);
+Verticalmotor.configReverseSoftLimitThreshold(Constants.Vertical_limit_Low);
+Verticalmotor.configForwardSoftLimitThreshold(Constants.Vertical_Limit_High);
+Verticalmotor.configForwardSoftLimitEnable(true);
+Verticalmotor.configReverseSoftLimitEnable(true);
 
+///////////////*************///////////////
 
   }
 
@@ -57,5 +62,10 @@ Verticalmotor.setSelectedSensorPosition(0); ///////////////*************////////
   }
 public void encoder_reset(){
   Verticalmotor.setSelectedSensorPosition(0);
+}
+
+public void RampRate(){
+
+  Verticalmotor.configMotionAcceleration(Constants.Vertical_Motio_Accel);
 }
 }
