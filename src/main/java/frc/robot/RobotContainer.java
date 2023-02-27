@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -13,16 +14,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.commands.AutoShoot;
+import frc.robot.commands.ClawOpen;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.IntakeFWD;
 import frc.robot.commands.IntakeREV;
 import frc.robot.commands.PIDHorizontalCommand;
+import frc.robot.commands.PIDHorizontalCommand_Auto;
 import frc.robot.commands.PIDVerticalCommand;
+import frc.robot.commands.PIDVerticalCommand_Auto;
 import frc.robot.commands.PIDWristCommand;
+import frc.robot.commands.PIDWristCommand_Auto;
 import frc.robot.subsystems.AirMod;
 import frc.robot.subsystems.ArmIntakeSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -91,7 +100,7 @@ m_drivetrainSubsystem.zeroGyroscope();
             m_drivetrainSubsystem,
             () -> -modifyAxis(m_Drive_Controller.getLeftY()*.8) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
             () -> -modifyAxis(m_Drive_Controller.getLeftX()*.8) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-            () -> -modifyAxis(m_Drive_Controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+            () -> -modifyAxis(m_Drive_Controller.getRightX()*.7) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
 
 
@@ -480,6 +489,67 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+
+System.out.println("auto Run");
+
+return
+
+   new SequentialCommandGroup(
+
+    new ClawOpen(M_PCM, true),
+    new ParallelCommandGroup(
+    new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset),
+    new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_High_Hori+ Constants.Horizontal_PID_Tolerance_Offset),
+   new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset)
+    ),
+    
+    new AutoShoot(m_ArmIntakeSubsystem, .3, 1),
+    new ParallelCommandGroup(
+      
+      (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+
+    ),
+
+    new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0,0.0,3.3),
+    new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0, 0, .4, .125)
+
+   );
+
+
+//    new SequentialCommandGroup(
+
+//     new ClawOpen(M_PCM, true),
+//     new ParallelCommandGroup(
+//     new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset),
+//     new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_High_Hori+ Constants.Horizontal_PID_Tolerance_Offset),
+//    new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset)
+//     ),
+    
+//     new AutoShoot(m_ArmIntakeSubsystem, .3, 1),
+//     new ParallelCommandGroup(
+      
+//       (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+//       (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+//       (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+
+//     ),
+
+
+// new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,-.75,0.0,2.5),
+// new ClawOpen(M_PCM, false),
+// new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85, 0, 0, 4.5),
+// new ClawOpen(M_PCM, true)
+
+//);
+
+
+  }
+     // Timer.delay(1),
+    //  new AutoDrive(m_drivetrainSubsystem, 0, 0, 0);
+    
+    
     // An ExampleCommand will run in autonomous
   //   return new InstantCommand();
   // }
@@ -491,16 +561,16 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
   //     } else {
   //       return (value + deadband) / (1.0 - deadband);
   //     }
-  if (autoChooser.getSelected() != null){
+//   if (autoChooser.getSelected() != null){
 
-System.out.println(autoChooser.getSelected());
-//SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(null, null, null, null, null, null, null)
-return new InstantCommand();
-  }
-     else {
-      return new InstantCommand();
-    }
-  }
+// System.out.println(autoChooser.getSelected());
+// //SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(null, null, null, null, null, null, null)
+// return new InstantCommand();
+//   }
+//      else {
+//       return new InstantCommand();
+//     }
+//   }
 
   private static double deadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {

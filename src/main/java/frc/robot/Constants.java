@@ -92,7 +92,7 @@ public static final int PCM_CAN_ID = 1 ;
 
     public static final int m_Horizontal = 46; // ArmMotor Falcon 500 CAN ID ###
     public static final double Horizontal_Motor_Speed = .2; 
-    public static final double Horizontal_PID_Speed = .3;
+    public static final double Horizontal_PID_Speed = .4;
     public static final double Horizontal_Limit_High = 105000 ;
     public static final double Horizontal_Limit_Low = 0;
 

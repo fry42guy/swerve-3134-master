@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.VerticalSubsystem;
 
-public class PIDVerticalCommand extends CommandBase {
+public class PIDVerticalCommand_Auto extends CommandBase {
   /** Creates a new PIDVerticalCommand. */
   private PIDController m_VerticalPIDController;
   private final VerticalSubsystem m_VerticalSubsystem;
   private double setPoint;
-  public PIDVerticalCommand(VerticalSubsystem m_VerticalSubsystem, double setPoint) {
+  public PIDVerticalCommand_Auto(VerticalSubsystem m_VerticalSubsystem, double setPoint) {
     this.m_VerticalSubsystem = m_VerticalSubsystem;
-    m_VerticalPIDController = new PIDController(.00004, 0.0000, 0.0);
+    m_VerticalPIDController = new PIDController(.00004, 0.000001, 0.0);
    // m_VerticalPIDController.enableContinuousInput(-1, 1);
     m_VerticalPIDController.setTolerance(1000);
     this.setPoint = setPoint;
