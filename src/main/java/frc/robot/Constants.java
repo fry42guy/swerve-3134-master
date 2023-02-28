@@ -105,19 +105,19 @@ public static final double Store_Stoe_Hori = 100;
 //Floor Pick up Cube/Cone
 
 public static final double Floor_Cube_Cone_Vert = -4000;
-public static final double Floor_Cube_Cone_Wrist = 116771;
+public static final double Floor_Cube_Cone_Wrist = 114771;
 public static final double Floor_Cube_Cone_Hori = 100;
 //Score Cone/Cube MID
 
 public static final double Cone_Cube_MID_Vert = -177192;
 public static final double Cone_Cube_MID_Wrist = 91095;
-public static final double Cone_Cube_MID_Hori = 76082;
+public static final double Cone_Cube_MID_Hori = 100082;
 
 
 //Score Cone/Cube High
-public static final double Cone_Cube_High_Vert = -177192;
+public static final double Cone_Cube_High_Vert = -168192;
 public static final double Cone_Cube_High_Wrist = 62000;
-public static final double Cone_Cube_High_Hori = 82718;
+public static final double Cone_Cube_High_Hori = 100018;
 
 //Travel w/Cone Cube
 
@@ -128,7 +128,7 @@ public static final double Cone_Cube_Travel_Hori = 100;
 //Pickup Player Station 
 
 public static final double Cone_Cube_Player_Station_Vert = -177192;
-public static final double Cone_Cube_Player_Station_Wrist = 76000;
+public static final double Cone_Cube_Player_Station_Wrist = 79000;
 public static final double Cone_Cube_Player_Station_Hori = 100;
 
 
