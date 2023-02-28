@@ -79,7 +79,7 @@ Ticks_To_Meters_Multiplyer = (((Wheel_Diameter_Meters*Math.PI)*MK4LV2_GearRatio)
   public void execute() {
     //System.out.println("this is running");
 
-    m_drivetrainSubsystem.drive(speed);
+    m_drivetrainSubsystem.drive(speed.fromFieldRelativeSpeeds(speed,m_drivetrainSubsystem.getGyroscopeRotation()));
 
   Current_Dist_Meters();
 
