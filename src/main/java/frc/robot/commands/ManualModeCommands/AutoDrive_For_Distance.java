@@ -16,7 +16,7 @@ public class AutoDrive_For_Distance extends CommandBase {
 
   private final double m_xdrive;
   private final double m_ydrive;
-  private final double m_zrotation;
+  //private final double m_zrotation;
   private  double m_Current_Dist;
   private final ChassisSpeeds speed;
   private TalonFX m_TalonFX1 = new TalonFX(Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR);
@@ -24,30 +24,40 @@ public class AutoDrive_For_Distance extends CommandBase {
   private final ChassisSpeeds stop;
   //private final Timer m_time;
   
- private final Timer m_time = new Timer();
- private final double Distance_ToTravel;
- private double init_Distance;
- private double end_Dist;
+ 
+ private double Distance_To_Travel_Target;
+
+ private double Current_Dist_Meters;
+ private double Ticks_To_Meters_Multiplyer;
+ private double MK4LV2_GearRatio;
+ private double ticks_per_Rev;
+ private double Wheel_Diameter_Meters;
+
+ //2048 ticks / rev
+ //1/6.75 Gear Ratio
+ //
 
 
   private final DrivetrainSubsystem m_drivetrainSubsystem;
   /** Creates a new AutoDrive. */
-  public AutoDrive_For_Distance(DrivetrainSubsystem drivetrainSubsystem ,double xdrive, double ydrive, double zRotation, double Meter_Dist) {
+  public AutoDrive_For_Distance(DrivetrainSubsystem drivetrainSubsystem ,double xdrive, double ydrive, double Meter_Dist_Target) {
 
 
     this.m_drivetrainSubsystem = drivetrainSubsystem;
 this.m_xdrive = xdrive;
 this.m_ydrive = ydrive;
-this.m_zrotation = zRotation;
-this.Distance_ToTravel = Meter_Dist;
+
+this.Distance_To_Travel_Target = Meter_Dist_Target;
 
 
-
-
+Wheel_Diameter_Meters = 0.10033;
+ticks_per_Rev = 2048;
+MK4LV2_GearRatio = (14.0 / 50.0) * (27.0 / 17.0) * (15.0 / 45.0);
+Ticks_To_Meters_Multiplyer = (((Wheel_Diameter_Meters*Math.PI)*MK4LV2_GearRatio)/ticks_per_Rev);
 
 
     addRequirements(drivetrainSubsystem);
-    speed = new ChassisSpeeds(xdrive,ydrive,zRotation);
+    speed = new ChassisSpeeds(xdrive,ydrive,0);
     stop = new ChassisSpeeds(0,0,0);
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -57,9 +67,9 @@ this.Distance_ToTravel = Meter_Dist;
   @Override
   public void initialize() {
   
-    m_time.restart();
-    init_Distance = m_TalonFX1.getSelectedSensorPosition();
-    end_Dist = Math.abs(init_Distance)+Math.abs(Distance_ToTravel);
+    m_TalonFX1.setSelectedSensorPosition(0);
+
+    
     
 
   }
@@ -70,10 +80,8 @@ this.Distance_ToTravel = Meter_Dist;
     //System.out.println("this is running");
 
     m_drivetrainSubsystem.drive(speed);
-System.out.println(m_time.get());
 
-m_Current_Dist = m_TalonFX1.getSelectedSensorPosition();
-
+  Current_Dist_Meters();
 
   
   //end(true);
@@ -85,16 +93,20 @@ m_Current_Dist = m_TalonFX1.getSelectedSensorPosition();
   public void end(boolean interrupted) {
     //System.out.println("this is end");
     m_drivetrainSubsystem.drive(stop);
-    m_time.stop();
+    
   }
 
+  private void Current_Dist_Meters(){
+Current_Dist_Meters= (Math.abs(m_TalonFX1.getSelectedSensorPosition()*Ticks_To_Meters_Multiplyer));
+    
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
 
     
-    if(end_Dist<Distance_ToTravel){
+    if(Distance_To_Travel_Target<Current_Dist_Meters ){
       return true;
     }
 else
