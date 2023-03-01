@@ -79,7 +79,9 @@ public class RobotContainer {
 
   private final ArmIntakeSubsystem m_ArmIntakeSubsystem = new ArmIntakeSubsystem();
  
-  SendableChooser<String> autoChooser = new SendableChooser<>();
+  SendableChooser<Command> autoChooser = new SendableChooser<>();
+
+  private Command m_autoSelected;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -141,9 +143,11 @@ m_drivetrainSubsystem.zeroGyroscope();
           //     System.err.println(e.getMessage());
           // }
           autoTab.add(autoChooser);
-          autoChooser.setDefaultOption("Not and Auto", "Not an Auto");
-          autoChooser.addOption("Simple", "Simple");
-          
+          autoChooser.setDefaultOption("Park_On_Charge_Station()", Park_On_Charge_Station());
+          autoChooser.addOption("auto_1_Red()", auto_1_Red());
+          autoChooser.addOption("auto_2_Red()", auto_2_Red());
+          autoChooser.addOption("auto_3_Red()", auto_3_Red());
+          autoChooser.addOption("auto_4_Red()", auto_4_Red());
          // autoChooser.addOption("Simple", "Simple");
 
          // autoChooser.addOption("Simple", "Simple");
@@ -488,16 +492,53 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
 
+  private final Command Park_On_Charge_Station(){  /// use this as the Example - Tweak for perfection 
+    
+    return 
+    new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+   
+  new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0.0,0.0,3.35), // "," on every line but last
+
+  new AutoDrive_Tor_Time(m_drivetrainSubsystem, .0,0.0,.5,.125) // last line - no ","
+  
+  ) // this ends the Sequential 
+
+  ;}// this ends the Command 
+     
+
+private Command auto_1_Red() {
+return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+
+}
+
+private Command auto_2_Red() {
+  return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+  
+  }
+  private Command auto_3_Red() {
+    return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+    
+    }
+
+  private Command auto_4_Red() {
+    return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+    
+    }
+
+
+  public Command getAutonomousCommand() {
+    m_autoSelected = autoChooser.getSelected();
+    
+    System.out.println("Auto selected: " + m_autoSelected);
 System.out.println("auto Run");
 
-return
+return m_autoSelected;
 
 //new AutoDrive_For_Distance(m_drivetrainSubsystem, .85,0,1);
 
 
-    new SequentialCommandGroup(
+   // new SequentialCommandGroup(
 
   //   new ClawOpen(M_PCM, true),
   //   new ParallelCommandGroup(
@@ -521,8 +562,8 @@ return
     //new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,-.95,0.0,.6),
     // new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.95, 0, .0, 3.8));
      //station 3 B
-     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,-.95,0.0,1.0),
-     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.95, 0, .0, 3.8));
+    // new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,-.95,0.0,1.0),
+   //  new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.95, 0, .0, 3.8));
     
 
   //  );
