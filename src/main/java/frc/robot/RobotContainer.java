@@ -497,7 +497,7 @@ return
 //new AutoDrive_For_Distance(m_drivetrainSubsystem, .85,0,1);
 
 
-  //  new SequentialCommandGroup(
+    new SequentialCommandGroup(
 
   //   new ClawOpen(M_PCM, true),
   //   new ParallelCommandGroup(
@@ -514,11 +514,16 @@ return
   //     (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
 
   //   ),
-
-    new AutoDrive_Tor_Time(m_drivetrainSubsystem, .95,0,0.0,3.3),
-    new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0, 0, .4, .125)
-  //   new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0,0.0,3.3),
-  //   new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0, 0, .4, .125)
+    // station 1 B
+   // new AutoDrive_Tor_Time(m_drivetrainSubsystem, .95,0,0.0,3.8), 
+    //new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0, 0, .4, .125));
+    //station 2 B
+    //new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,-.95,0.0,.6),
+    // new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.95, 0, .0, 3.8));
+     //station 3 B
+     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,-.95,0.0,1.0),
+     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.95, 0, .0, 3.8));
+    
 
   //  );
 
