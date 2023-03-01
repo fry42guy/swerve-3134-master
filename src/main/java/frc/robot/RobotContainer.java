@@ -494,28 +494,33 @@ System.out.println("auto Run");
 
 return
 
-   new SequentialCommandGroup(
+//new AutoDrive_For_Distance(m_drivetrainSubsystem, .85,0,1);
 
-    new ClawOpen(M_PCM, true),
-    new ParallelCommandGroup(
-    new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset),
-    new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_High_Hori+ Constants.Horizontal_PID_Tolerance_Offset),
-   new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset)
-    ),
+
+  //  new SequentialCommandGroup(
+
+  //   new ClawOpen(M_PCM, true),
+  //   new ParallelCommandGroup(
+  //   new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset),
+  //   new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_High_Hori+ Constants.Horizontal_PID_Tolerance_Offset),
+  //  new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset)
+  //   ),
     
-    new AutoShoot(m_ArmIntakeSubsystem, .3, 1),
-    new ParallelCommandGroup(
+  //   new AutoShoot(m_ArmIntakeSubsystem, .3, 1),
+  //   new ParallelCommandGroup(
       
-      (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
-      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
-      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+  //     (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+  //     (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+  //     (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
 
-    ),
+  //   ),
 
     new AutoDrive_Tor_Time(m_drivetrainSubsystem, .95,0,0.0,3.3),
     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0, 0, .4, .125)
+  //   new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0,0.0,3.3),
+  //   new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0, 0, .4, .125)
 
-   );
+  //  );
 
 
 //    new SequentialCommandGroup(
