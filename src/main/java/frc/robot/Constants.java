@@ -105,7 +105,7 @@ public static final double Store_Stoe_Hori = 100;
 //Floor Pick up Cube/Cone
 
 public static final double Floor_Cube_Cone_Vert = -4000;
-public static final double Floor_Cube_Cone_Wrist = 114771;
+public static final double Floor_Cube_Cone_Wrist = 113771;
 public static final double Floor_Cube_Cone_Hori = 100;
 //Score Cone/Cube MID
 

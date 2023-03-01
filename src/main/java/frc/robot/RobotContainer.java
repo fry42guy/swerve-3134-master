@@ -512,7 +512,7 @@ return
 
     ),
 
-    new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0,0.0,3.3),
+    new AutoDrive_Tor_Time(m_drivetrainSubsystem, .95,0,0.0,3.3),
     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0, 0, .4, .125)
 
    );
