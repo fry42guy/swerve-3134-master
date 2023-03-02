@@ -514,10 +514,11 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
 
 private Command auto_1_Red() {
 return  new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
-   
+Auto_Cone_Cube_MID,new AutoShoot(m_ArmIntakeSubsystem, .3, 1), Auto_Stoe,
 new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,0.85,0.0,.5), // "," on every line but last
-Auto_Stoe,
-new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.0)); // last line - no ","
+
+new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.0));
+// last line -no ","
 // This is cube blue 2 and is good frost
  // this ends the Sequential 
 
