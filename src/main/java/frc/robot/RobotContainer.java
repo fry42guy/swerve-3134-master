@@ -142,16 +142,21 @@ m_drivetrainSubsystem.zeroGyroscope();
           // catch (Exception e) {
           //     System.err.println(e.getMessage());
           // }
-          autoTab.add(autoChooser);
+          
           autoChooser.setDefaultOption("Park_On_Charge_Station()", Park_On_Charge_Station());
           autoChooser.addOption("auto_1_Red()", auto_1_Red());
           autoChooser.addOption("auto_2_Red()", auto_2_Red());
           autoChooser.addOption("auto_3_Red()", auto_3_Red());
           autoChooser.addOption("auto_4_Red()", auto_4_Red());
+          autoTab.add(autoChooser);
          // autoChooser.addOption("Simple", "Simple");
 
          // autoChooser.addOption("Simple", "Simple");
           
+  }
+
+  private Command Park_On_Charge_Station() {
+    return null;
   }
 
   /**
@@ -493,24 +498,30 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
    * @return the command to run in autonomous
    */
 
-  private final Command Park_On_Charge_Station(){  /// use this as the Example - Tweak for perfection 
+  //private final Command Park_On_Charge_Station(){  /// use this as the Example - Tweak for perfection 
     
-    return 
-    new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+    //return 
+    //new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
    
-  new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0.0,0.0,3.35), // "," on every line but last
+  //new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0.0,0.0,3.35), // "," on every line but last
 
-  new AutoDrive_Tor_Time(m_drivetrainSubsystem, .0,0.0,.5,.125) // last line - no ","
+  //new AutoDrive_Tor_Time(m_drivetrainSubsystem, .0,0.0,.5,.125) // last line - no ","
   
-  ) // this ends the Sequential 
+  //) // this ends the Sequential 
 
-  ;}// this ends the Command 
+  // this ends the Command 
      
 
 private Command auto_1_Red() {
-return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+return  new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+   
+new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,0.85,0.0,.5), // "," on every line but last
 
-}
+new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.0)); // last line - no ","
+// This is cube blue 2 and is good frost
+ // this ends the Sequential 
+
+}// this ends the Command ; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
 
 private Command auto_2_Red() {
   return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
