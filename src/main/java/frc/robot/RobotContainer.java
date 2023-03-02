@@ -516,7 +516,7 @@ private Command auto_1_Red() {
 return  new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
    
 new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,0.85,0.0,.5), // "," on every line but last
-
+Auto_Stoe,
 new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.0)); // last line - no ","
 // This is cube blue 2 and is good frost
  // this ends the Sequential 
@@ -545,7 +545,27 @@ private Command auto_2_Red() {
 System.out.println("auto Run");
 
 return m_autoSelected;
+  }
 
+
+  private ParallelCommandGroup Auto_Cone_Cube_High = new ParallelCommandGroup(
+  
+    new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset),
+    new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_High_Hori+ Constants.Horizontal_PID_Tolerance_Offset),
+   new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset));
+
+
+   private ParallelCommandGroup Auto_Stoe = new ParallelCommandGroup(
+         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+   );
+
+private ParallelCommandGroup Auto_Cone_Cube_MID = new ParallelCommandGroup( 
+  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
+  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
+  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+);
 //new AutoDrive_For_Distance(m_drivetrainSubsystem, .85,0,1);
 
 
@@ -607,7 +627,7 @@ return m_autoSelected;
 //);
 
 
-  }
+  
      // Timer.delay(1),
     //  new AutoDrive(m_drivetrainSubsystem, 0, 0, 0);
     
