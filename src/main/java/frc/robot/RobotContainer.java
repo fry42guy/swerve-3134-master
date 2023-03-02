@@ -149,6 +149,7 @@ m_drivetrainSubsystem.zeroGyroscope();
           autoChooser.addOption("auto_2_Red()", auto_2_Red());
           autoChooser.addOption("auto_3_Red()", auto_3_Red());
           autoChooser.addOption("auto_4_Red()", auto_4_Red());
+          autoChooser.addOption("auto_5_Red()", auto_5_Red());
           autoTab.add(autoChooser);
          // autoChooser.addOption("Simple", "Simple");
 
@@ -513,31 +514,69 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
     return null;
   }
 
-private Command auto_1_Red() {
+private Command auto_1_Red() {// blue 3 otherwise good frost claw will not open . but in telle it opens on its own at times..
 return  new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
-Auto_Cone_Cube_MID,new AutoShoot(m_ArmIntakeSubsystem, .3, 1), Auto_Stoe,
-new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,0.85,0.0,.5), // "," on every line but last
+//new AutoShoot(m_ArmIntakeSubsystem, .3, 1), 
 
-new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.0));
+new ParallelCommandGroup( 
+  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
+  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
+  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
+
+  new ParallelCommandGroup(
+  new ClawOpen(M_PCM, true),// claw will not open . but in telle it opens on its own at times..
+
+  (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+   ),
+
+new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,0.8,0.0,1.0), // "," on every line but last
+
+new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.3));
 // last line -no ","
-// This is cube blue 2 and is good frost
+
  // this ends the Sequential 
 
 }// this ends the Command ; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
 
-private Command auto_2_Red() {
-  return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+private Command auto_2_Red() {// cone blue 1 needs pause between claw open and stoe
+  return new SequentialCommandGroup( // runs a group sequentialy between the ( )
+
+  new ParallelCommandGroup( 
+  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
+  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
+  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
+
+  new ParallelCommandGroup(
+  new ClawOpen(M_PCM, true),
+
+  (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+   ),
    
   new AutoDrive_Tor_Time(m_drivetrainSubsystem, -0.85,0.,0.0,4.3), // "," on every line but last
   
   new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,0.0,.0,.0)); // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
   //drive back out of zone
   }
-  private Command auto_3_Red() {
+
+
+  private Command auto_3_Red() {//cube Blue 2 good frost
     return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
-    Auto_Cone_Cube_MID, 
-    Auto_Claw_Open,
-    Auto_Stoe,
+    new ParallelCommandGroup( 
+  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
+  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
+  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
+  new ParallelCommandGroup(
+  new AutoShoot(m_ArmIntakeSubsystem, .3, 1)),
+  new ParallelCommandGroup(
+         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+   ),
+
     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.8,0.0,1.0), // "," on every line but last
     
     new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.3)); // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
@@ -545,9 +584,50 @@ private Command auto_2_Red() {
     }
 
   private Command auto_4_Red() {
-    return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+    return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+    new ParallelCommandGroup( 
+  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
+  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
+  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
+
+  new ParallelCommandGroup(
+  new AutoShoot(m_ArmIntakeSubsystem, .3, 1)),
+
+  new ParallelCommandGroup(
+         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+   ), 
+   new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.8,0.0,2.7), // "," on every line but last
     
-    }
+   new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.3));
+   
+   } 
+    
+    
+   private Command auto_5_Red() {
+
+    return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+    new ParallelCommandGroup( 
+  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
+  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
+  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
+
+  new ParallelCommandGroup(
+  new AutoShoot(m_ArmIntakeSubsystem, .3, 1)),
+
+  new ParallelCommandGroup(
+         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+   ),
+
+  new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,0.0,3.5), // "," on every line but last
+    
+   new AutoDrive_Tor_Time(m_drivetrainSubsystem, .0,0.0,.5,.125));
+   
+   }
+
 
 
   public Command getAutonomousCommand() {
@@ -579,13 +659,13 @@ private ParallelCommandGroup Auto_Cone_Cube_MID = new ParallelCommandGroup(
   ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))
 );
 
-private ParallelCommandGroup Auto_Outake = new ParallelCommandGroup(
- new AutoShoot(m_ArmIntakeSubsystem, .3, 1)
-);
+//private ParallelCommandGroup Auto_Outake = new ParallelCommandGroup(
+// new AutoShoot(m_ArmIntakeSubsystem, .3, 1)
+//);
 
-private ParallelCommandGroup Auto_Claw_Open = new ParallelCommandGroup(
-  new ClawOpen(M_PCM, true)
-);
+//private ParallelCommandGroup Auto_Claw_Open = new ParallelCommandGroup(
+  //new ClawOpen(M_PCM, true)
+//);
 
 //new AutoDrive_For_Distance(m_drivetrainSubsystem, .85,0,1);
 
