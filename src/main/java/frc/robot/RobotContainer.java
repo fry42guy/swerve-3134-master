@@ -105,6 +105,7 @@ m_drivetrainSubsystem.zeroGyroscope();
             () -> -modifyAxis(m_Drive_Controller.getRightX()*.7) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
 
+    new ClawOpen(M_PCM, false);
 
 // ShuffleboardTab buttons = Shuffleboard.getTab("Buttons");
  //SmartDashboard.putData("Zero/Home Postions set", zeroHomeallaxis());
@@ -155,9 +156,7 @@ m_drivetrainSubsystem.zeroGyroscope();
           
   }
 
-  private Command Park_On_Charge_Station() {
-    return null;
-  }
+ 
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -510,7 +509,9 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
   //) // this ends the Sequential 
 
   // this ends the Command 
-     
+  private Command Park_On_Charge_Station() {
+    return null;
+  }
 
 private Command auto_1_Red() {
 return  new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
@@ -575,6 +576,15 @@ private ParallelCommandGroup Auto_Cone_Cube_MID = new ParallelCommandGroup(
   (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
   ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))
 );
+
+private ParallelCommandGroup Auto_Outake = new ParallelCommandGroup(
+ new AutoShoot(m_ArmIntakeSubsystem, .3, 1)
+);
+
+private ParallelCommandGroup Auto_Claw_Open = new ParallelCommandGroup(
+  new ClawOpen(M_PCM, true)
+);
+
 //new AutoDrive_For_Distance(m_drivetrainSubsystem, .85,0,1);
 
 
