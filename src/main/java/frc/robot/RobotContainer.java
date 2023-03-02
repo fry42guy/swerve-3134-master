@@ -105,7 +105,7 @@ m_drivetrainSubsystem.zeroGyroscope();
             () -> -modifyAxis(m_Drive_Controller.getRightX()*.7) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
 
-    new ClawOpen(M_PCM, false);
+    //new ClawOpen(M_PCM, false);
 
 // ShuffleboardTab buttons = Shuffleboard.getTab("Buttons");
  //SmartDashboard.putData("Zero/Home Postions set", zeroHomeallaxis());
@@ -535,7 +535,9 @@ private Command auto_2_Red() {
   }
   private Command auto_3_Red() {
     return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
-   
+    Auto_Cone_Cube_MID, 
+    Auto_Claw_Open,
+    Auto_Stoe,
     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.8,0.0,1.0), // "," on every line but last
     
     new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.3)); // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
