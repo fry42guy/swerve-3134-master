@@ -524,11 +524,19 @@ new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.0)); // last line - 
 }// this ends the Command ; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
 
 private Command auto_2_Red() {
-  return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+  return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+   
+  new AutoDrive_Tor_Time(m_drivetrainSubsystem, -0.85,0.,0.0,4.3), // "," on every line but last
   
+  new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,0.0,.0,.0)); // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+  //drive back out of zone
   }
   private Command auto_3_Red() {
-    return null; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+    return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+   
+    new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.8,0.0,1.0), // "," on every line but last
+    
+    new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.3)); // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
     
     }
 
