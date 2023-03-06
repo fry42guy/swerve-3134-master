@@ -311,7 +311,18 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.valu
       .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cone_Cube_Player_Station_Hori+ Constants.Horizontal_PID_Tolerance_Offset))
       .onTrue(new PIDWristCommand(m_Wrist, Constants.Cone_Cube_Player_Station_Wrist+Constants.Wrist_PID_Tolerance_Offset));
 
-
+      new Trigger(()->
+     
+      {
+        if(m_Drive_Controller.getAButton())
+          return true;
+        else
+          return false;
+  
+      })
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.BB_Virt))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.BB_Hori))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.BB_Wrist));
       // new Trigger(()->
      
       // {
@@ -540,7 +551,7 @@ new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.3));
 
 }// this ends the Command ; // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
 
-private Command auto_2_Red() {// cone blue 1 needs pause between claw open and stoe
+private Command auto_2_Red() {// cone any 1 good frost
   return new SequentialCommandGroup( // runs a group sequentialy between the ( )
 
   new ParallelCommandGroup( 
@@ -556,14 +567,14 @@ private Command auto_2_Red() {// cone blue 1 needs pause between claw open and s
       (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
    ),
    
-  new AutoDrive_Tor_Time(m_drivetrainSubsystem, -0.85,0.,0.0,4.3), // "," on every line but last
+  new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.85,0.,0.0,4.3), // "," on every line but last
   
   new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0,0.0,.0,.0)); // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
   //drive back out of zone
   }
 
 
-  private Command auto_3_Red() {//cube Blue 2 good frost
+  private Command auto_3_Red() {//cube any 2 good frost
     return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
     new ParallelCommandGroup( 
   ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
@@ -577,9 +588,9 @@ private Command auto_2_Red() {// cone blue 1 needs pause between claw open and s
       (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
    ),
 
-    new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.8,0.0,1.0), // "," on every line but last
+    new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.,0.0,.0), // "," on every line but last
     
-    new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.3)); // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
+    new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0.0,.0,4.3)); // "Replace null;" with somthing like new SequentialCommandGroup(new Comands.........); 
     
     }
 
@@ -600,14 +611,14 @@ private Command auto_2_Red() {// cone blue 1 needs pause between claw open and s
    ), 
    new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.8,0.0,2.7), // "," on every line but last
     
-   new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,.0,4.3));
+   new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0.0,.0,4.3));
    
    } 
     
     
-   private Command auto_5_Red() {
+   private Command auto_5_Red() {// cube balance good frost
 
-    return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
+    return new SequentialCommandGroup( //  ( ) 
     new ParallelCommandGroup( 
   ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
   (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
@@ -622,7 +633,7 @@ private Command auto_2_Red() {// cone blue 1 needs pause between claw open and s
       (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
    ),
 
-  new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,0.0,3.5), // "," on every line but last
+  new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0.0,0.0,3.5), // "," on every line but last
     
    new AutoDrive_Tor_Time(m_drivetrainSubsystem, .0,0.0,.5,.125));
    
