@@ -57,7 +57,7 @@ public final class Constants {
 
 
 //###############################################################################################################################
-public static final double Swereve_Front_Angle_Offset = 0; //90   
+public static final double Swereve_Front_Angle_Offset = 180; //90   
 
 public static final int PCM_CAN_ID = 1 ;
     public static final int Arm_Intake_Left_ID = 51;
@@ -95,38 +95,40 @@ public static final int PCM_CAN_ID = 1 ;
     public static final double Horizontal_PID_Speed = .4;
     public static final double Horizontal_Limit_High = 105000 ;
     public static final double Horizontal_Limit_Low = 0;
-
-// Start/Stow
-
+    
+    // Start/Stow (RT)
 public static final double Store_Stoe_Vert = -4000;
-public static final double Store_Stoe_Wrist = 9252;
+public static final double Store_Stoe_Wrist = 80000;
 public static final double Store_Stoe_Hori = 100;
 
-//Floor Pick up Cube/Cone
+//BB(A)
+public static final double BB_Virt = -4000;
+public static final double BB_Wrist =63000;
+public static final double BB_Hori = 100;  
 
+
+//Floor Pick up Cube/Cone(LB)
 public static final double Floor_Cube_Cone_Vert = -4000;
 public static final double Floor_Cube_Cone_Wrist = 113771;
 public static final double Floor_Cube_Cone_Hori = 100;
-//Score Cone/Cube MID
 
+//Score Cone/Cube MID (LT)
 public static final double Cone_Cube_MID_Vert = -177192;
 public static final double Cone_Cube_MID_Wrist = 91095;
 public static final double Cone_Cube_MID_Hori = 100082;
 
 
-//Score Cone/Cube High
+//Score Cone/Cube High (x)
 public static final double Cone_Cube_High_Vert = -168192;
 public static final double Cone_Cube_High_Wrist = 62000;
 public static final double Cone_Cube_High_Hori = 100018;
 
-//Travel w/Cone Cube
-
+//Travel w/Cone Cube(RB)
 public static final double Cone_Cube_Travel_Vert = -4000;
 public static final double Cone_Cube_Travel_Wrist = 17000;
 public static final double Cone_Cube_Travel_Hori = 100;
 
-//Pickup Player Station 
-
+//Pickup Player Station (Y)
 public static final double Cone_Cube_Player_Station_Vert = -177192;
 public static final double Cone_Cube_Player_Station_Wrist = 79000;
 public static final double Cone_Cube_Player_Station_Hori = 100;
