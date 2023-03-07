@@ -141,6 +141,10 @@ public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKine
     new Translation2d(-DRIVETRAIN_WHEELBASE_METERS / 2, -DRIVETRAIN_TRACKWIDTH_METERS / 2));
 
 
+
+    public static final int LED_PCM_CAN_ID = 20;
+
+
     public static final class AutoConstants {
     public static final HashMap<String, Command> eventMap = new HashMap<>();
 

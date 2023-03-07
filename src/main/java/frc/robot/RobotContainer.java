@@ -33,6 +33,7 @@ import frc.robot.commands.PIDVerticalCommand_Auto;
 import frc.robot.commands.PIDWristCommand;
 import frc.robot.commands.PIDWristCommand_Auto;
 import frc.robot.subsystems.AirMod;
+import frc.robot.subsystems.LED_Lights_SubSystem;
 import frc.robot.subsystems.ArmIntakeSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HorizontalSubsystem;
@@ -70,6 +71,8 @@ public class RobotContainer {
   private final XboxController m_Operator_Controller = new XboxController(1);
 
   private final AirMod M_PCM = new AirMod();
+
+  private final LED_Lights_SubSystem m_LED = new LED_Lights_SubSystem();
 
   private final WristSubsystem m_Wrist = new WristSubsystem();
 
@@ -190,6 +193,16 @@ m_drivetrainSubsystem.zeroGyroscope();
 new JoystickButton(m_Operator_Controller, XboxController.Button.kLeftBumper.value)
 .onTrue(new InstantCommand(
   ()-> M_PCM.ClawOpen()
+));
+
+new JoystickButton(m_Operator_Controller, XboxController.Button.kX.value)
+.onTrue(new InstantCommand(
+  ()-> m_LED.LED_puple()
+));
+
+new JoystickButton(m_Operator_Controller, XboxController.Button.kY.value)
+.onTrue(new InstantCommand(
+  ()-> m_LED.LED_yellow()
 ));
 
 
