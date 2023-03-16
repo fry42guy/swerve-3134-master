@@ -575,9 +575,9 @@ private Command auto_2_Red() {// cone any 1 good frost
   new ParallelCommandGroup(
   new ClawOpen(M_PCM, true),
 
-  (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
-      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
-      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+  (new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_Travel_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_Travel_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_Travel_Wrist+Constants.Wrist_PID_Tolerance_Offset))
    ),
    
   new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.85,0.,0.0,4.3), // "," on every line but last
@@ -590,15 +590,15 @@ private Command auto_2_Red() {// cone any 1 good frost
   private Command auto_3_Red() {//cube any 2 good frost
     return new SequentialCommandGroup( // runs a group sequentialy between the ( ) 
     new ParallelCommandGroup( 
-  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
-  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
-  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
+  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
+  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_High_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
+  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
   new ParallelCommandGroup(
   new AutoShoot(m_ArmIntakeSubsystem, .3, 1)),
   new ParallelCommandGroup(
-         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
-      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
-      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_Travel_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_Travel_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_Travel_Wrist+Constants.Wrist_PID_Tolerance_Offset))
    ),
 
     new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.,0.0,.0), // "," on every line but last
@@ -618,9 +618,9 @@ private Command auto_2_Red() {// cone any 1 good frost
   new AutoShoot(m_ArmIntakeSubsystem, .3, 1)),
 
   new ParallelCommandGroup(
-         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
-      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
-      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_Travel_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_Travel_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_Travel_Wrist+Constants.Wrist_PID_Tolerance_Offset))
    ), 
    new AutoDrive_Tor_Time(m_drivetrainSubsystem, 0.0,0.8,0.0,2.7), // "," on every line but last
     
@@ -633,21 +633,21 @@ private Command auto_2_Red() {// cone any 1 good frost
 
     return new SequentialCommandGroup( //  ( ) 
     new ParallelCommandGroup( 
-  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_MID_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
-  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_MID_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
-  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_MID_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
+  ( new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset)),
+  (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_High_Hori+ Constants.Horizontal_PID_Tolerance_Offset)),
+  ( new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset))),
 
   new ParallelCommandGroup(
   new AutoShoot(m_ArmIntakeSubsystem, .3, 1)),
 
   new ParallelCommandGroup(
-         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Store_Stoe_Vert + Constants.Vertical_PID_Tolerance_Offset)),
-      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Store_Stoe_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
-      (new PIDWristCommand_Auto(m_Wrist, Constants.Store_Stoe_Wrist+Constants.Wrist_PID_Tolerance_Offset))
+         (new PIDVerticalCommand_Auto(m_Vertical, Constants.Cone_Cube_Travel_Vert + Constants.Vertical_PID_Tolerance_Offset)),
+      (new PIDHorizontalCommand_Auto(m_Horizontal, Constants.Cone_Cube_Travel_Hori + Constants.Horizontal_PID_Tolerance_Offset)),
+      (new PIDWristCommand_Auto(m_Wrist, Constants.Cone_Cube_Travel_Wrist+Constants.Wrist_PID_Tolerance_Offset))
    ),
 
-  new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0.0,0.0,3.5), // "," on every line but last
-    
+  new AutoDrive_Tor_Time(m_drivetrainSubsystem, .85,0.0,0.0,5.6), // "," on every line but last
+    new AutoDrive_Tor_Time(m_drivetrainSubsystem, -.85,0.0,0.0,3.7),
    new AutoDrive_Tor_Time(m_drivetrainSubsystem, .0,0.0,.5,.125));
    
    }

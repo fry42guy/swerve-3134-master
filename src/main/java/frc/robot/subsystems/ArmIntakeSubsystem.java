@@ -41,7 +41,7 @@ Arm_Motor_Right.setSelectedSensorPosition(0);
   public void setSpeed(double speed)
   {
     Arm_Motor_Left.set(ControlMode.PercentOutput, speed);
-    Arm_Motor_Right.set(ControlMode.PercentOutput, speed*-1);
+    Arm_Motor_Right.set(ControlMode.PercentOutput, speed);
   }
 
   public void stop()
