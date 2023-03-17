@@ -98,39 +98,39 @@ public static final int PCM_CAN_ID = 1 ;
     
     // Start/Stow (RT)
 public static final double Store_Stoe_Vert = -4000;
-public static final double Store_Stoe_Wrist = 80000;
+public static final double Store_Stoe_Wrist = 0000;
 public static final double Store_Stoe_Hori = 100;
 
-//BB(A)
+//BB(A) new arm
 public static final double BB_Virt = -4000;
-public static final double BB_Wrist =59000;
+public static final double BB_Wrist =36300;
 public static final double BB_Hori = 100;  
 
 
-//Floor Pick up Cube/Cone(LB)
+//Floor Pick up Cube/Cone(LB) new arm
 public static final double Floor_Cube_Cone_Vert = -4000;
-public static final double Floor_Cube_Cone_Wrist = 113071;
+public static final double Floor_Cube_Cone_Wrist = 89368;
 public static final double Floor_Cube_Cone_Hori = 100;
 
-//Score Cone/Cube MID (LT)
-public static final double Cone_Cube_MID_Vert = -177192;
-public static final double Cone_Cube_MID_Wrist = 91095;
-public static final double Cone_Cube_MID_Hori = 100082;
+//Score Cone/Cube MID (LT) new arm
+public static final double Cone_Cube_MID_Vert = -55000;
+public static final double Cone_Cube_MID_Wrist = 50095;
+public static final double Cone_Cube_MID_Hori = 80082;
 
 
-//Score Cone/Cube High (x)
+//Score Cone/Cube High (x) new arm
 public static final double Cone_Cube_High_Vert = -168192;
-public static final double Cone_Cube_High_Wrist = 62000;
-public static final double Cone_Cube_High_Hori = 100018;
+public static final double Cone_Cube_High_Wrist = 67000;
+public static final double Cone_Cube_High_Hori = 103018;
 
-//Travel w/Cone Cube(RB)
+//Travel w/Cone Cube(RB) new arm
 public static final double Cone_Cube_Travel_Vert = -4000;
-public static final double Cone_Cube_Travel_Wrist = 17000;
+public static final double Cone_Cube_Travel_Wrist = 500;
 public static final double Cone_Cube_Travel_Hori = 100;
 
 //Pickup Player Station (Y)
 public static final double Cone_Cube_Player_Station_Vert = -177192;
-public static final double Cone_Cube_Player_Station_Wrist = 79000;
+public static final double Cone_Cube_Player_Station_Wrist = 65000;
 public static final double Cone_Cube_Player_Station_Hori = 100;
 
 
