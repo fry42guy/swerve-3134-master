@@ -62,7 +62,7 @@ public static final double Swereve_Front_Angle_Offset = 180; //90
 public static final int PCM_CAN_ID = 1 ;
     public static final int Arm_Intake_Left_ID = 51;
     public static final int Arm_Intake_Right_ID = 50;
-    public static final double Arm_intake_speed = .30;
+    public static final double Arm_intake_speed = .40;
 
 
     public static final int m_Wrist = 44; // ArmMotor Falcon 500 CAN ID ###
@@ -109,7 +109,7 @@ public static final double BB_Hori = 100;
 
 //Floor Pick up Cube/Cone(LB) new arm
 public static final double Floor_Cube_Cone_Vert = -4000;
-public static final double Floor_Cube_Cone_Wrist = 89368;
+public static final double Floor_Cube_Cone_Wrist = 89368-2000;
 public static final double Floor_Cube_Cone_Hori = 100;
 
 //Score Cone/Cube MID (LT) new arm
@@ -120,7 +120,7 @@ public static final double Cone_Cube_MID_Hori = 80082;
 
 //Score Cone/Cube High (x) new arm
 public static final double Cone_Cube_High_Vert = -168192;
-public static final double Cone_Cube_High_Wrist = 67000;
+public static final double Cone_Cube_High_Wrist = 67000-20000-3000-3000;
 public static final double Cone_Cube_High_Hori = 103018;
 
 //Travel w/Cone Cube(RB) new arm

@@ -41,9 +41,18 @@ Arm_Motor_Right.setSelectedSensorPosition(0);
   public void setSpeed(double speed)
   {
     Arm_Motor_Left.set(ControlMode.PercentOutput, speed);
-    Arm_Motor_Right.set(ControlMode.PercentOutput, speed);
+    Arm_Motor_Right.set(ControlMode.PercentOutput, speed*2);
   }
 
+  public void setSpeedLeft(double speed){
+    Arm_Motor_Left.set(ControlMode.PercentOutput, speed);
+
+  }
+  
+  public void setSpeedRight(double speed){
+    Arm_Motor_Right.set(ControlMode.PercentOutput, speed);
+
+  }
   public void stop()
   {
     Arm_Motor_Left.set(ControlMode.PercentOutput,0);
@@ -56,6 +65,11 @@ Arm_Motor_Right.setSelectedSensorPosition(0);
   public double getAbsoluteEncoderCountsRight()
   {
     return Arm_Motor_Right.getSelectedSensorPosition();
+  }
+
+  public void Arm_Encoder_RESET(){
+    Arm_Motor_Left.setSelectedSensorPosition(0);
+    Arm_Motor_Right.setSelectedSensorPosition(0);
   }
 
 }

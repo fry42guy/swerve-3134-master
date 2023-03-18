@@ -26,6 +26,7 @@ import frc.robot.commands.ClawOpen;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.IntakeFWD;
 import frc.robot.commands.IntakeREV;
+import frc.robot.commands.Intake_ADV_BREAK_MODE;
 import frc.robot.commands.PIDHorizontalCommand;
 import frc.robot.commands.PIDHorizontalCommand_Auto;
 import frc.robot.commands.PIDVerticalCommand;
@@ -99,7 +100,7 @@ public class RobotContainer {
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
-
+    m_ArmIntakeSubsystem.setDefaultCommand(new Intake_ADV_BREAK_MODE(m_ArmIntakeSubsystem));
 m_drivetrainSubsystem.zeroGyroscope();
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
             m_drivetrainSubsystem,
@@ -107,6 +108,8 @@ m_drivetrainSubsystem.zeroGyroscope();
             () -> -modifyAxis(m_Drive_Controller.getLeftX()*.8) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
             () -> -modifyAxis(m_Drive_Controller.getRightX()*.7) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
     ));
+
+   
 
     //new ClawOpen(M_PCM, false);
 
