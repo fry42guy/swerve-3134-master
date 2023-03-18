@@ -62,7 +62,7 @@ public static final double Swereve_Front_Angle_Offset = 180; //90
 public static final int PCM_CAN_ID = 1 ;
     public static final int Arm_Intake_Left_ID = 51;
     public static final int Arm_Intake_Right_ID = 50;
-    public static final double Arm_intake_speed = .40;
+    public static final double Arm_intake_speed = .45;
 
 
     public static final int m_Wrist = 44; // ArmMotor Falcon 500 CAN ID ###
@@ -96,9 +96,9 @@ public static final int PCM_CAN_ID = 1 ;
     public static final double Horizontal_Limit_High = 105000 ;
     public static final double Horizontal_Limit_Low = 0;
     
-    // Start/Stow (RT)
+    // Start/Stow (RT) new arm floor cube
 public static final double Store_Stoe_Vert = -4000;
-public static final double Store_Stoe_Wrist = 0000;
+public static final double Store_Stoe_Wrist = 98000;
 public static final double Store_Stoe_Hori = 100;
 
 //BB(A) new arm
@@ -107,7 +107,7 @@ public static final double BB_Wrist =36300;
 public static final double BB_Hori = 100;  
 
 
-//Floor Pick up Cube/Cone(LB) new arm
+//Floor Pick up Cube/Cone(LB) new arm cone
 public static final double Floor_Cube_Cone_Vert = -4000;
 public static final double Floor_Cube_Cone_Wrist = 89368-2000;
 public static final double Floor_Cube_Cone_Hori = 100;
@@ -118,20 +118,27 @@ public static final double Cone_Cube_MID_Wrist = 50095;
 public static final double Cone_Cube_MID_Hori = 80082;
 
 
-//Score Cone/Cube High (x) new arm
-public static final double Cone_Cube_High_Vert = -168192;
-public static final double Cone_Cube_High_Wrist = 67000-20000-3000-3000;
-public static final double Cone_Cube_High_Hori = 103018;
+//Score Cone/Cube High (x) new arm cone shoot high
+public static final double Cone_Cube_High_Vert = -55000;//-168192;
+public static final double Cone_Cube_High_Wrist = 4500;//67000-20000-3000-3000;
+public static final double Cone_Cube_High_Hori = 600;//103018;
 
 //Travel w/Cone Cube(RB) new arm
 public static final double Cone_Cube_Travel_Vert = -4000;
 public static final double Cone_Cube_Travel_Wrist = 500;
 public static final double Cone_Cube_Travel_Hori = 100;
 
-//Pickup Player Station (Y)
+//Pickup Player Station (B)cube high
+public static final double Cube_High_Vert = -177192;
+public static final double Cube_High_Wrist = 35000;
+public static final double Cube_high_Hori = 80000;
+
+//Pickup Player Station (Y) New arm cone cube
 public static final double Cone_Cube_Player_Station_Vert = -177192;
 public static final double Cone_Cube_Player_Station_Wrist = 65000;
-public static final double Cone_Cube_Player_Station_Hori = 100;
+public static final double Cone_Cube_Player_Station_Hori = 00;
+
+
 
 
 public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(

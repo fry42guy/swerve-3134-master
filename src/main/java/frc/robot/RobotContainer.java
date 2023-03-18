@@ -275,6 +275,19 @@ new JoystickButton(m_Operator_Controller, XboxController.Button.kY.value)
       new Trigger(()->
      
       {
+        if(m_Drive_Controller.getBButton())
+          return true;
+        else
+          return false;
+  
+      })
+      .onTrue(new PIDVerticalCommand(m_Vertical, Constants.Cube_High_Vert+ Constants.Vertical_PID_Tolerance_Offset))
+      .onTrue(new PIDHorizontalCommand(m_Horizontal, Constants.Cube_high_Hori+ Constants.Horizontal_PID_Tolerance_Offset))
+      .onTrue(new PIDWristCommand(m_Wrist, Constants.Cube_High_Wrist+Constants.Wrist_PID_Tolerance_Offset));
+
+      new Trigger(()->
+     
+      {  
         if(m_Drive_Controller.getLeftTriggerAxis() > 0)
           return true;
         else
