@@ -12,26 +12,34 @@ import com.swervedrivespecialties.swervelib.SwerveModule;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LimelightHelpers;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 
 import static frc.robot.Constants.*;
 
 public class DrivetrainSubsystem extends SubsystemBase {
+
+        
   /**
    * The maximum voltage that will be delivered to the drive motors.
    * <p>
@@ -89,8 +97,31 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
 
+  private final Swerve_Odometry m_frontLeft = new Swerve_Odometry(Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR, Constants.FRONT_LEFT_MODULE_STEER_MOTOR,Constants.FRONT_LEFT_MODULE_STEER_ENCODER,FRONT_LEFT_MODULE_STEER_OFFSET);
+  private final Swerve_Odometry m_frontRight = new Swerve_Odometry(Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR, Constants.FRONT_RIGHT_MODULE_STEER_MOTOR,Constants.FRONT_RIGHT_MODULE_STEER_ENCODER,FRONT_RIGHT_MODULE_STEER_OFFSET);
+  private final Swerve_Odometry m_backLeft = new Swerve_Odometry(Constants.BACK_LEFT_MODULE_DRIVE_MOTOR, Constants.BACK_LEFT_MODULE_STEER_MOTOR,Constants.BACK_LEFT_MODULE_STEER_ENCODER,BACK_LEFT_MODULE_STEER_OFFSET);
+  private final Swerve_Odometry m_backRight = new Swerve_Odometry(Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR, Constants.BACK_RIGHT_MODULE_STEER_MOTOR,Constants.BACK_RIGHT_MODULE_STEER_ENCODER,BACK_RIGHT_MODULE_STEER_OFFSET);
+
+
+
+  private final SwerveDriveOdometry m_odometry =
+      new SwerveDriveOdometry(
+          m_kinematics,
+          getGyroscopeRotation(),
+          new SwerveModulePosition[] {
+            m_frontLeft.getPosition(),
+            m_frontRight.getPosition(),
+            m_backLeft.getPosition(),
+            m_backRight.getPosition()
+          });
  
   public DrivetrainSubsystem() {
+
+    
+
+
+
+
         zeroGyroscope();
     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
@@ -176,15 +207,74 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * 'forwards' direction.
  * @return 
    */
+
+
   public Command zeroGyroscope() {
     // FIXME Remove if you are using a Pigeon
    // m_pigeon.setFusedHeading(0.0);
 
     // FIXME Uncomment if you are using a NavX
+    
+    m_backLeft.ResetDriveEncoder();
+    m_backRight.ResetDriveEncoder();
+    m_frontLeft.ResetDriveEncoder();
+    m_frontRight.ResetDriveEncoder();
     m_navx.zeroYaw();
   m_navx.setAngleAdjustment(Constants.Swereve_Front_Angle_Offset);
+  m_odometry.resetPosition(getGyroscopeRotation(),new SwerveModulePosition[] {
+        m_frontLeft.getPosition(),
+        m_frontRight.getPosition(),
+        m_backLeft.getPosition(),
+        m_backRight.getPosition()
+      }, new Pose2d(0, 0, getGyroscopeRotation()));
+
+
+
+
+  
+
 return null;//############
   }
+
+  public void resetOdometry(Pose2d pose) {
+        m_poseEstimator.resetPosition(
+            getGyroscopeRotation(),
+            new SwerveModulePosition[] {
+                m_frontLeft.getPosition(),
+                m_frontRight.getPosition(),
+                m_backLeft.getPosition(),
+                m_backRight.getPosition()
+            },
+            pose);
+      }
+
+
+  public Pose2d getPose() {
+        return m_poseEstimator.getEstimatedPosition();
+      }
+  private final SwerveDrivePoseEstimator m_poseEstimator =
+  new SwerveDrivePoseEstimator(
+      m_kinematics,
+      getGyroscopeRotation(),
+      new SwerveModulePosition[] {
+        m_frontLeft.getPosition(),
+        m_frontRight.getPosition(),
+        m_backLeft.getPosition(),
+        m_backRight.getPosition()
+      },
+      new Pose2d(0, 0, new Rotation2d(0)));//, 
+      
+      //
+//       VecBuilder.fill(0.85, 0.85, Units.degreesToRadians(0.5)), // initiial was 0.05 for both on top and 0.5 for bottom, 0.05, 0.05, 0.65
+//       VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(60))); // 0.5, 0.5, 50 
+//0.15, 0.15, 0.5          .75, 0.75, 60
+
+      //1.5 1.5 0.65
+      //0.05, 0.05, 10
+  LimelightHelpers.LimelightResults llresults = LimelightHelpers.getLatestResults("limelight");
+  ShuffleboardTab limeLightTab = Shuffleboard.getTab("limelight");
+  Field2d m_field = new Field2d();
+
 
   public Rotation2d getGyroscopeRotation() {
     // FIXME Remove if you are using a Pigeon
@@ -204,7 +294,13 @@ return null;//############
     m_chassisSpeeds = chassisSpeeds;
   }
 
-
+  public void setModuleStates(SwerveModuleState[] states) {
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, m_chassisSpeeds,2, 2, 2);
+            m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());
+            m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
+            m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
+            m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
+      }
   
   @Override
   public void periodic() {
@@ -215,15 +311,32 @@ return null;//############
     //SwerveDriveKinematics.normalizeWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
 
 
-    SwerveDriveKinematics.desaturateWheelSpeeds(states, m_chassisSpeeds, BACK_LEFT_MODULE_STEER_MOTOR, BACK_LEFT_MODULE_STEER_ENCODER, BACK_LEFT_MODULE_DRIVE_MOTOR); 
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, m_chassisSpeeds,2, 2, 2); 
     m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());
     m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
     m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
-  }
+ 
+updateOdometry();
+
+SmartDashboard.putNumber("odo X", m_odometry.getPoseMeters().getX());
+SmartDashboard.putNumber("odo y", m_odometry.getPoseMeters().getY());
+SmartDashboard.putNumber("odo r", m_odometry.getPoseMeters().getRotation().getDegrees());
 
 
-  
+}
+
+
+  public void updateOdometry() {
+        m_odometry.update(
+            m_navx.getRotation2d(),
+            new SwerveModulePosition[] {
+              m_frontLeft.getPosition(),
+              m_frontRight.getPosition(),
+              m_backLeft.getPosition(),
+              m_backRight.getPosition()
+            });
+      }
 
 
 }
